@@ -18,10 +18,12 @@ namespace WebApiDepartments
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            string con = "Server=(localdb)\\mssqllocaldb;Database=departmentsdbstore;Trusted_Connection=True;";
-            
+            string conDeps  = "Server=(localdb)\\mssqllocaldb;Database=departmentsdbstore;Trusted_Connection=True;";
+            string conUsers = "Server=(localdb)\\mssqllocaldb;Database=usersdbstore03;Trusted_Connection=True;";
+
             // устанавливаем контекст данных
-            services.AddDbContext<DepartmentsContext>(options => options.UseSqlServer(con));
+            services.AddDbContext<DepartmentsContext>(options => options.UseSqlServer(conDeps));
+            services.AddDbContext<UsersContext>(options => options.UseSqlServer(conUsers));
 
             services.AddControllers(); // используем контроллеры без представлений
         }

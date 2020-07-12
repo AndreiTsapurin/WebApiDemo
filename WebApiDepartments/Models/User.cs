@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace WebApiDepartments.Models
 {
-    public class Department
+    public class User
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public List<User> Users { get; set; }
+        
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }

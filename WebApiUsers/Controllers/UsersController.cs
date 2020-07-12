@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,18 @@ namespace WebApiUsers.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+
+            List<User> users = await db.Users.ToListAsync();
+
+            //string link = "https://localhost:44330/api/departments";
+            string link = "https://217.76.39.39:25720/Warehouses/GetSaldoByIds?token=PbLuroWxX9Q9lOC7VI3V&requestid=fbbe2b5fd9a94a9750d2872878fdaae2&warehouses=RG008SB9RFH1KR&products=RQLAGL2GL5RSDR,RG008P0RNAEHVS";
+
+            //WebClient wc = new WebClient();
+            //wc.
+
+            string response = new WebClient().DownloadString(link);
+
             return await db.Users.ToListAsync();
         }
 

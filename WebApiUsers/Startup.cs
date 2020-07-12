@@ -18,7 +18,7 @@ namespace WebApiUsers
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            string con = "Server=(localdb)\\mssqllocaldb;Database=usersdbstore;Trusted_Connection=True;";
+            string con = "Server=(localdb)\\mssqllocaldb;Database=usersdbstore_new;Trusted_Connection=True;";
 
             // устанавливаем контекст данных
             services.AddDbContext<UsersContext>(options => options.UseSqlServer(con));
