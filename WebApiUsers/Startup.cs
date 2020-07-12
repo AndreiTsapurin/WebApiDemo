@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using WebApiUsers.Models;
 
 namespace WebApiUsers
@@ -18,12 +12,14 @@ namespace WebApiUsers
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            string con = "Server=(localdb)\\mssqllocaldb;Database=usersdbstore_new;Trusted_Connection=True;";
+            string conDeps = "Server=(localdb)\\mssqllocaldb;Database=departmentsdbstore;Trusted_Connection=True;";
+            string conUsers = "Server=(localdb)\\mssqllocaldb;Database=usersdbstore05;Trusted_Connection=True;";
 
-            // устанавливаем контекст данных
-            services.AddDbContext<UsersContext>(options => options.UseSqlServer(con));
+            // Setup data contexts
+            services.AddDbContext<DepartmentsContext>(options => options.UseSqlServer(conDeps));
+            services.AddDbContext<UsersContext>(options => options.UseSqlServer(conUsers));
 
-            services.AddControllers(); // используем контроллеры без представлений
+            services.AddControllers(); // use controllers without views
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,7 +31,7 @@ namespace WebApiUsers
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers(); // подключаем маршрутизацию на контроллеры
+                endpoints.MapControllers(); // set routing on the controllers
             });
         }
     }

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApiDepartments.Models
+namespace WebApiUsers.Models
 {
-    public class UsersContext : DbContext
+    public class DepartmentsContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-        
-        public UsersContext(DbContextOptions<UsersContext> options)
+        public DbSet<Department> Departments { get; set; }
+       
+        public DepartmentsContext(DbContextOptions<DepartmentsContext> options)
             : base(options)
         {
             Database.EnsureCreated();

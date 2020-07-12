@@ -15,32 +15,28 @@ namespace WebApiUsers.Controllers
     public class UsersController : ControllerBase
     {
         UsersContext db;
-        public UsersController(UsersContext context)
+        DepartmentsContext dbDeps;
+
+        public UsersController(UsersContext context, DepartmentsContext contextDeps)
         {
             db = context;
+            dbDeps = contextDeps;
+
             if (!db.Users.Any())
             {
-                db.Users.Add(new User { Name = "Andrew Thomas", DepId = 1 });
-                db.Users.Add(new User { Name = "Bill Moore", DepId = 1 });
-                db.Users.Add(new User { Name = "Keiran Moyer", DepId = 1 });
-                db.Users.Add(new User { Name = "Isobella Walmsley", DepId = 2 });
-                db.Users.Add(new User { Name = "Miruna Bullock", DepId = 2 });
-                db.Users.Add(new User { Name = "Kier Almond", DepId = 2 });
-                db.Users.Add(new User { Name = "Huzaifa Petersen", DepId = 2 });
-                db.Users.Add(new User { Name = "Akash Roberts", DepId = 3 });
-                db.Users.Add(new User { Name = "Gino Zhang", DepId = 3 });
-                db.Users.Add(new User { Name = "Kya Mcpherson", DepId = 4 });
-                db.Users.Add(new User { Name = "Olli Conroy", DepId = 4 });
-                db.Users.Add(new User { Name = "Fynn Orozco", DepId = 4 });
-                db.Users.Add(new User { Name = "Barney Beaumont", DepId = 4 });
-                db.Users.Add(new User { Name = "Roscoe Cline", DepId = 5 });
-                db.Users.Add(new User { Name = "Beatriz O'Reilly", DepId = 5 });
-                db.Users.Add(new User { Name = "Danial Hollis", DepId = 5 });
-                db.Users.Add(new User { Name = "Lacie Mill", DepId = 5 });
-                db.Users.Add(new User { Name = "Dainton Whitmore", DepId = 6 });
-                db.Users.Add(new User { Name = "Jesse Cotton", DepId = 6 });
-                db.Users.Add(new User { Name = "Jemma Battle", DepId = 6 });
-                db.Users.Add(new User { Name = "Reiss Perkins", DepId = 6 });
+                db.Users.Add(new User { Name = "Andrew Thomas", Department = dbDeps.Departments.Where(d => d.Name == "Technical").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Bill Moore", Department = dbDeps.Departments.Where(d => d.Name == "Technical").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Keiran Moyer", Department = dbDeps.Departments.Where(d => d.Name == "Marketing").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Isobella Walmsley", Department = dbDeps.Departments.Where(d => d.Name == "Marketing").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Miruna Bullock", Department = dbDeps.Departments.Where(d => d.Name == "IT").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Kier Almond", Department = dbDeps.Departments.Where(d => d.Name == "IT").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Huzaifa Petersen", Department = dbDeps.Departments.Where(d => d.Name == "Bookkering").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Akash Roberts", Department = dbDeps.Departments.Where(d => d.Name == "Bookkering").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Gino Zhang", Department = dbDeps.Departments.Where(d => d.Name == "Legal").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Kya Mcpherson", Department = dbDeps.Departments.Where(d => d.Name == "Legal").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Olli Conroy", Department = dbDeps.Departments.Where(d => d.Name == "Maintenance").FirstOrDefault() });
+                db.Users.Add(new User { Name = "Fynn Orozco", Department = dbDeps.Departments.Where(d => d.Name == "Maintenance").FirstOrDefault() });
+
                 db.SaveChanges();
             }
         }
@@ -48,18 +44,6 @@ namespace WebApiUsers.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
-            ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
-
-            List<User> users = await db.Users.ToListAsync();
-
-            //string link = "https://localhost:44330/api/departments";
-            string link = "https://217.76.39.39:25720/Warehouses/GetSaldoByIds?token=PbLuroWxX9Q9lOC7VI3V&requestid=fbbe2b5fd9a94a9750d2872878fdaae2&warehouses=RG008SB9RFH1KR&products=RQLAGL2GL5RSDR,RG008P0RNAEHVS";
-
-            //WebClient wc = new WebClient();
-            //wc.
-
-            string response = new WebClient().DownloadString(link);
-
             return await db.Users.ToListAsync();
         }
 
