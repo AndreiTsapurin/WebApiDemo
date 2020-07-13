@@ -24,18 +24,30 @@ namespace WebApiUsers.Controllers
 
             if (!db.Users.Any())
             {
-                db.Users.Add(new User { Name = "Andrew Thomas", Department = dbDeps.Departments.Where(d => d.Name == "Technical").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Bill Moore", Department = dbDeps.Departments.Where(d => d.Name == "Technical").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Keiran Moyer", Department = dbDeps.Departments.Where(d => d.Name == "Marketing").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Isobella Walmsley", Department = dbDeps.Departments.Where(d => d.Name == "Marketing").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Miruna Bullock", Department = dbDeps.Departments.Where(d => d.Name == "IT").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Kier Almond", Department = dbDeps.Departments.Where(d => d.Name == "IT").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Huzaifa Petersen", Department = dbDeps.Departments.Where(d => d.Name == "Bookkering").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Akash Roberts", Department = dbDeps.Departments.Where(d => d.Name == "Bookkering").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Gino Zhang", Department = dbDeps.Departments.Where(d => d.Name == "Legal").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Kya Mcpherson", Department = dbDeps.Departments.Where(d => d.Name == "Legal").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Olli Conroy", Department = dbDeps.Departments.Where(d => d.Name == "Maintenance").FirstOrDefault() });
-                db.Users.Add(new User { Name = "Fynn Orozco", Department = dbDeps.Departments.Where(d => d.Name == "Maintenance").FirstOrDefault() });
+                // Fill departments
+                Department technical = new Department { Name = "Technical" };
+                Department marketing = new Department { Name = "Marketing" };
+                Department IT = new Department { Name = "IT" };
+                Department bookkering = new Department { Name = "Bookkering" };
+                Department legal = new Department { Name = "Legal" };
+                Department maintenance = new Department { Name = "Maintenance" };
+
+                dbDeps.AddRange(technical, marketing, IT, bookkering, legal, maintenance);
+                dbDeps.SaveChanges();
+
+                // Fill users
+                db.Users.Add(new User { Name = "Andrew Thomas", Department = technical });
+                db.Users.Add(new User { Name = "Bill Moore", Department = technical });
+                db.Users.Add(new User { Name = "Keiran Moyer", Department = marketing });
+                db.Users.Add(new User { Name = "Isobella Walmsley", Department = marketing });
+                db.Users.Add(new User { Name = "Miruna Bullock", Department = IT });
+                db.Users.Add(new User { Name = "Kier Almond", Department = IT });
+                db.Users.Add(new User { Name = "Huzaifa Petersen", Department = bookkering });
+                db.Users.Add(new User { Name = "Akash Roberts", Department = bookkering });
+                db.Users.Add(new User { Name = "Gino Zhang", Department = legal });
+                db.Users.Add(new User { Name = "Kya Mcpherson", Department = legal });
+                db.Users.Add(new User { Name = "Olli Conroy", Department = maintenance });
+                db.Users.Add(new User { Name = "Fynn Orozco", Department = maintenance });
 
                 db.SaveChanges();
             }

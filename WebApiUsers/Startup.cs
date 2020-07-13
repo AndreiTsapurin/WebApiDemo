@@ -13,7 +13,7 @@ namespace WebApiUsers
         public void ConfigureServices(IServiceCollection services)
         {
             string conDeps = "Server=(localdb)\\mssqllocaldb;Database=departmentsdbstore;Trusted_Connection=True;";
-            string conUsers = "Server=(localdb)\\mssqllocaldb;Database=usersdbstore05;Trusted_Connection=True;";
+            string conUsers = "Server=(localdb)\\mssqllocaldb;Database=usersdbstore;Trusted_Connection=True;";
 
             // Setup data contexts
             services.AddDbContext<DepartmentsContext>(options => options.UseSqlServer(conDeps));
